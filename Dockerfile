@@ -7,8 +7,7 @@ LABEL org.opencontainers.image.source https://github.com/belarusians/contact-bot
 ENV USER=botuser \
     GROUP=botgroup
 
-COPY ./src /bot/src
-COPY ./requirements.txt /bot
+COPY ./requirements.txt /bot/
 
 RUN addgroup -S ${GROUP} && \
     adduser -S ${USER} ${GROUP} && \
@@ -17,6 +16,8 @@ RUN addgroup -S ${GROUP} && \
 WORKDIR /bot
 
 RUN pip install -r requirements.txt
+
+COPY ./src /bot/src
 
 USER ${USER}
 
