@@ -1,3 +1,5 @@
+[![Build and push docker image](https://github.com/belarusians/some_bot/actions/workflows/ci-build.yml/badge.svg)](https://github.com/belarusians/some_bot/actions/workflows/ci-build.yml)
+
 # Repository for some_bot
 
 ### Prerequisites
