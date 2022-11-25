@@ -10,6 +10,7 @@ from telegram.ext import (
     Updater,
     CommandHandler,
     MessageHandler,
+    ChatMemberHandler,
     Filters,
     ConversationHandler,
     CallbackContext,
@@ -82,6 +83,17 @@ def handle_free_message(update: Update, context: CallbackContext) -> str:
         return start(update, context)
 
 
+def chat_handler(update: Update, context: CallbackContext) -> str:
+    if update.my_chat_member.new_chat_member.user.id == context.bot.id:
+        if update.my_chat_member.new_chat_member.status == 'member':
+            logger.info(f"Bot was added to group {update.effective_chat.id}")
+            current_chat_id = update.effective_chat.id
+            text = f'{notify.ADMIN_GROUP_NAME}: {current_chat_id}\nПеразапусьціце мяне з гэтым параметрам, каб я змог сюды пісаць'
+            context.bot.send_message(chat_id=current_chat_id, text=text)
+        else:
+            logger.info(f"Bot was removed from group {update.effective_chat.id}")
+
+
 def main(token) -> None:
     updater = Updater(token)
     dispatcher = updater.dispatcher
@@ -90,6 +102,7 @@ def main(token) -> None:
         entry_points=[
             CommandHandler('start', start),
             MessageHandler(Filters.reply, admin_live_chat.handler),
+            ChatMemberHandler(callback=chat_handler),
             MessageHandler(Filters.all, handle_free_message),
         ],
         states={
