@@ -5,7 +5,7 @@ import notify
 
 READY_BTN = "Скончыць дыялог"
 MSG = "Вы ўвайшлі ў чат з намі. Каб выйсьці з чату націсніце \"{}\"".format(READY_BTN)
-STATE = "free_text"
+STATE = "user_live_chat"
 
 
 def handler(update: Update, context: CallbackContext) -> str:

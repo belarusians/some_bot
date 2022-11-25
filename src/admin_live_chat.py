@@ -3,7 +3,7 @@ import json
 from telegram import Update
 from telegram.ext import CallbackContext, MessageHandler, Filters
 
-STATE = "operator"
+STATE = "live_chat"
 
 
 def handler(update: Update, context: CallbackContext) -> str:

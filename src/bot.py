@@ -15,8 +15,9 @@ from telegram.ext import (
     CallbackContext,
 )
 
-import free_text
-import operator2
+import user_live_chat
+import admin_live_chat
+import notify
 import button1
 import button2
 import button3
@@ -88,17 +89,17 @@ def main(token) -> None:
     conv_handler = ConversationHandler(
         entry_points=[
             CommandHandler('start', start),
-            MessageHandler(Filters.reply, operator2.handler),
-            MessageHandler(Filters.all, handle_free_message)
+            MessageHandler(Filters.reply, admin_live_chat.handler),
+            MessageHandler(Filters.all, handle_free_message),
         ],
         states={
             START: start_handlers,
-            button1.STATE: button1.handlers + [CommandHandler('start', start)],
-            button2.STATE: button2.handlers + [CommandHandler('start', start)],
-            button3.STATE: button3.handlers + [CommandHandler('start', start)],
-            button4.STATE: button4.handlers + [CommandHandler('start', start)],
-            free_text.STATE: free_text.handlers + [CommandHandler('start', start)],
-            operator2.STATE: operator2.handlers,
+            button1.STATE: [CommandHandler('start', start)],
+            button2.STATE: [CommandHandler('start', start)],
+            button3.STATE: [CommandHandler('start', start)],
+            button4.STATE: [CommandHandler('start', start)],
+            user_live_chat.STATE: user_live_chat.handlers + [CommandHandler('start', start)],
+            admin_live_chat.STATE: admin_live_chat.handlers,
         },
         fallbacks=[
             CommandHandler('cancel', cancel)
