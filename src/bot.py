@@ -35,7 +35,7 @@ GREETINGS_MSG = "Вітаем! Тыкайце!"
 
 
 def start(update: Update, context: CallbackContext) -> str:
-    # context.user_data.clear()
+    context.user_data.clear()
     reply_keyboard = [[button1.TO_BTN, button2.TO_BTN, button3.TO_BTN, button4.TO_BTN]]
 
     update.message.reply_text(
@@ -71,14 +71,6 @@ start_handlers = [
 
 
 def handle_free_message(update: Update, context: CallbackContext) -> str:
-    # if 'CHAT_ID' not in context.user_data or 'STATE' not in context.user_data:
-    #     return restarter(start)(update, context)
-
-    # if context.user_data['STATE'] == button2.STATE:
-    #     return button2.free_text_handler(update, context)
-    # elif context.user_data['STATE'] == button4.STATE:
-    #     return button4.free_text_handler(update, context)
-
     if update.message.chat.type != 'group':
         return start(update, context)
 
@@ -126,4 +118,8 @@ def main(token) -> None:
 
 if __name__ == '__main__':
     TOKEN = sys.argv[1]
+    if not TOKEN:
+        logger.error('Telegram API token has to be provided as first argument')
+        exit(1)
     main(TOKEN)
+    logger.info(f'Bot was started')

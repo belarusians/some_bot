@@ -21,7 +21,7 @@ def notify_with_document(update: Update, context: CallbackContext) -> None:
     if not os.environ.get(ADMIN_GROUP_NAME):
         logger.warning(f'{ADMIN_GROUP_NAME} env variable has to be set, otherwise bot will not support live chat')
     if not update.message.document:
-        logger.error("Карыстальнік паслаў файл, але нешта пайшло ня так")
+        logger.error(f'User has sent the file, but something went wrong')
         notify_with_text("Карыстальнік паслаў файл, але нешта пайшло ня так, глядзіце логі", context)
     caption = json.dumps(context.user_data, ensure_ascii=False)
     context.bot.send_document(chat_id=ADMIN_GROUP, document=update.message.document, caption=caption)
