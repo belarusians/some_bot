@@ -25,7 +25,7 @@ jobs:
         env:
           GITHUB_REF: ${{ github.ref }}
         id: get-tag
-        run: echo "::set-output name=tag::$(echo $GITHUB_REF | cut -d'/' -f3)"
+        run: echo "tag=$(echo $GITHUB_REF | cut -d'/' -f3)" >> $GITHUB_OUTPUT
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v3
